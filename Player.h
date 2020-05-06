@@ -13,9 +13,6 @@
 #include <QTimer>
 
 
-#include "Utils.h"
-
-
 class Player : public QGraphicsPixmapItem {
 
 

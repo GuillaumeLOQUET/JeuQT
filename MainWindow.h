@@ -3,7 +3,7 @@
 //
 #include <QMainWindow>
 #include <QGraphicsView>
-#include "MainScene.h"
+#include "RunScene.h"
 #include "Launcher.h"
 
 #ifndef JEUQT_MAINWINDOW_H
@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow{
     Q_OBJECT
 
 private:
-    MainScene* mainScene ;
+    RunScene* GameScene ;
     Launcher* menuScene ;
     QGraphicsView* menuView;
     QGraphicsView* playerView;

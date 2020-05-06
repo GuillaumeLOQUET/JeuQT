@@ -1,23 +1,20 @@
 //
 // Created by Guillaume LOQUET on 14/04/2020.
 //
-#include "MainScene.h"
+#include "RunScene.h"
 
 #include <QMouseEvent>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsItem>
-#include <string>
 #include <QPainter>
 #include <QGraphicsPixmapItem>
 #include <QTimer>
 #include <QVector>
 #include <QRectF>
-#include <iostream>
-#include <fstream>
 #include <QtGui/QFontDatabase>
 
-MainScene::MainScene() {
+RunScene::RunScene() {
     // Construction of the game scene elements
 
     this->background.load("game/fondGame.png");
@@ -53,18 +50,18 @@ MainScene::MainScene() {
 
 }
 
-MainScene::~MainScene() {
+RunScene::~RunScene() {
 
     delete this->timerUpdate;
 
 }
 
-void MainScene::drawBackground(QPainter *painter, const QRectF &rect) {
+void RunScene::drawBackground(QPainter *painter, const QRectF &rect) {
     Q_UNUSED(rect);
     painter->drawPixmap(QRectF(0,0,background.width(), background.height()), background, sceneRect());
 }
 
-void MainScene::launchGame() {
+void RunScene::launchGame() {
 
     startButton->setVisible(true);
     exitButton->setVisible(false);
@@ -72,7 +69,7 @@ void MainScene::launchGame() {
     connect(this->startButton,SIGNAL(clicked()),this,SLOT(startGame()));
 }
 
-void MainScene::startGame() {
+void RunScene::startGame() {
     disconnect(this->startButton,SIGNAL(clicked()),this,SLOT(startGame()));
     startButton->setVisible(false);
 
@@ -95,7 +92,7 @@ void MainScene::startGame() {
 
 }
 
-void MainScene::buildModule() {
+void RunScene::buildModule() {
     listModule.append(this->addPixmap(QPixmap("module/module2.png")));
     listModule[0]->setPos(0, 1000);
     listModule.append(this->addPixmap(QPixmap("module/module1.png")));
@@ -131,7 +128,7 @@ void MainScene::buildModule() {
     finishModule->setPos(9700, 900 - this->finishModule->boundingRect().height() + 10);
 }
 
-void MainScene::update() {
+void RunScene::update() {
 
     // update of the timer
     textTimer->setPlainText(QString::number(runTime->elapsed() / 1000) + ":" + QString::number(runTime->elapsed() / 10 % 100));
@@ -199,7 +196,7 @@ void MainScene::update() {
 
 }
 
-bool MainScene::touchModule() {
+bool RunScene::touchModule() {
     bool istouch = false ;
 
     for(QGraphicsPixmapItem* module : listModule){
@@ -211,13 +208,13 @@ bool MainScene::touchModule() {
     }
     return istouch;
 }
-void MainScene::isWin(){
+void RunScene::isWin(){
     if(this->getPlayer()->collidesWithItem(finishModule)){ // if the player win
         end();
     }
 }
 
-void MainScene::end() {
+void RunScene::end() {
 
     disconnect(timerUpdate, SIGNAL(timeout()), this, SLOT(update()));
 
@@ -231,7 +228,7 @@ void MainScene::end() {
 
 
 //functions redefined
-void MainScene::keyPressEvent(QKeyEvent *event) {
+void RunScene::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Z || event->key() == Qt::Key_Up) {
         this->getPlayer()->setPressUp(true);
 
@@ -250,7 +247,7 @@ void MainScene::keyPressEvent(QKeyEvent *event) {
     }
 
 }
-void MainScene::keyReleaseEvent(QKeyEvent *event) {
+void RunScene::keyReleaseEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Z || event->key() == Qt::Key_Up) {
         this->getPlayer()->setPressUp(false);
 

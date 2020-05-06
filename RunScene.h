@@ -2,8 +2,8 @@
 // Created by Guillaume LOQUET on 14/04/2020.
 //
 
-#ifndef JEUQT_MAINSCENE_H
-#define JEUQT_MAINSCENE_H
+#ifndef JEUQT_RUNSCENE_H
+#define JEUQT_RUNSCENE_H
 
 #include <QGraphicsScene>
 #include <QPixmap>
@@ -17,7 +17,7 @@
 
 #include "Player.h"
 
-class MainScene : public QGraphicsScene{
+class RunScene : public QGraphicsScene{
     Q_OBJECT
 
 private :
@@ -42,8 +42,8 @@ private :
 
 public:
     // Constructor
-    MainScene();
-    virtual ~MainScene();
+    RunScene();
+    virtual ~RunScene();
 
     //functions redefined
     void keyPressEvent(QKeyEvent *event);
@@ -71,4 +71,4 @@ public slots :
 };
 
 
-#endif //JEUQT_MAINSCENE_H
+#endif //JEUQT_RUNSCENE_H

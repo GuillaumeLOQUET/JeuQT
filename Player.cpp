@@ -6,7 +6,6 @@
 #include <QWidget>
 #include <QPointF>
 #include <QTime>
-#include <iostream>
 
 //Functions
 void Player::changeImage() {

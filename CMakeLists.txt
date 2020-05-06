@@ -6,6 +6,6 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5Widgets CONFIG REQUIRED)
 
-add_executable(JeuQT main.cpp MainWindow.cpp MainScene.cpp Player.cpp Launcher.cpp)
+add_executable(JeuQT main.cpp MainWindow.cpp RunScene.cpp Player.cpp Launcher.cpp)
 
 target_link_libraries(JeuQT Qt5::Widgets)

@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     test.addApplicationFont("Jeuqt-Regular.ttf");
     // Instantiate scenes
     this->menuScene = new Launcher();
-    this->mainScene = new MainScene();
+    this->GameScene = new RunScene();
 
     // load the main menu view
     buildMenuView();
@@ -30,13 +30,13 @@ void MainWindow::buildGame() {
     disconnect(this->menuScene->getExit(),SIGNAL(clicked()),qApp,SLOT(quit()));
     // Set the view of the game
     this->playerView = new QGraphicsView();
-    this->playerView->setScene(mainScene);
+    this->playerView->setScene(GameScene);
     playerView->scale(0.4, 0.4);
 
 
     if(this->menuScene->getSceneSwitch()){// If true, set a new view with the all scene
         this->mainView = new QGraphicsView();
-        this->mainView->setScene(mainScene);
+        this->mainView->setScene(GameScene);
         mainView->scale(0.1, 0.1);
         mainView->show();
     }
@@ -44,9 +44,9 @@ void MainWindow::buildGame() {
     //
     this->setCentralWidget(playerView);
     this->setWindowTitle("Game");
-    this->mainScene->launchGame();// call the launcher of the run
+    this->GameScene->launchGame();// call the launcher of the run
 
-    connect(this->mainScene->getExit(),SIGNAL(clicked()),this,SLOT(buildEndGameView()));
+    connect(this->GameScene->getExit(), SIGNAL(clicked()), this, SLOT(buildEndGameView()));
 
 }
 
@@ -67,10 +67,10 @@ void MainWindow::buildMenu() {
 
 void MainWindow::buildEndGameView() {
     // Load at the end of the run
-    disconnect(this->mainScene->getExit(),SIGNAL(clicked()),this,SLOT(buildEndGameView()));
+    disconnect(this->GameScene->getExit(), SIGNAL(clicked()), this, SLOT(buildEndGameView()));
 
     buildMenu();
-    this->menuScene->endGameView(this->mainScene->getScore());
+    this->menuScene->endGameView(this->GameScene->getScore());
 
     connect(this->menuScene->getRestartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
     connect(this->menuScene->getStartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
