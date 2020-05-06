@@ -19,6 +19,7 @@ Launcher::Launcher() {
                                "background-color: transparent;");
     resultLabel->setFont(QFontDatabase().font("Jeuqt","regular",40));
     resultLabel->setGeometry(150 ,50  ,700,300);
+    resultLabel->setAlignment(Qt::AlignCenter);
     result = addWidget(resultLabel);
 
     startButton = new QPushButton("Start");
@@ -64,9 +65,9 @@ Launcher::Launcher() {
 }
 
 
-
+// View
 void Launcher::menuView() {
-
+    //Main Menu
     disconnect(this->backButton, SIGNAL(clicked()),this,SLOT(menuView()));
 
     startButton->setVisible(true);
@@ -80,7 +81,7 @@ void Launcher::menuView() {
 }
 
 void Launcher::endGameView(int score) {
-    
+    // View at the end of the run
     disconnect(this->sceneSwitchButton, SIGNAL(clicked()),this,SLOT(changeSceneSwitch()));
 
     startButton->setVisible(false);
@@ -90,16 +91,19 @@ void Launcher::endGameView(int score) {
     restartButton->setVisible(true);
     resultLabel->setVisible(true);
 
+    // Get the last score
     std::ifstream tmp("score.txt");
 
     std::string mot;
     tmp >> mot;
     int lastscore = atoi(mot.c_str());
-    resultLabel->setAlignment(Qt::AlignCenter);
+
+    // Print the result according to the score
     if(lastscore == 0){
         QString text = "Congratulation\nYou are the first champion\nYou finished in : " + QString::number(score/1000)+":"+QString::number(score/100%10) ;
         resultLabel->setText(text);
 
+        // Write the new score in the .txt
         std::ofstream flux("score.txt");
         if(flux){
             flux << score;
@@ -108,6 +112,7 @@ void Launcher::endGameView(int score) {
         QString text = "Congratulation\nYou are the new champion\nYou finished in : " + QString::number(score/1000)+":"+QString::number(score/100%10) ;
         resultLabel->setText(text);
 
+        // Write the new score in the .txt
         std::ofstream flux("score.txt");
         if(flux){
             flux << score;
@@ -122,18 +127,7 @@ void Launcher::endGameView(int score) {
 }
 
 void Launcher::ScoreView() {
-
-}
-
-
-void Launcher::drawBackground(QPainter *painter, const QRectF &rect) {
-    Q_UNUSED(rect);
-    painter->drawPixmap(QRectF(0,0,background.width(), background.height()), background, sceneRect());
-}
-
-
-bool Launcher::getSceneSwitch() {
-    return this->sceneSwitch;
+// Not implemented
 }
 
 void Launcher::changeSceneSwitch() {
@@ -145,6 +139,18 @@ void Launcher::changeSceneSwitch() {
         sceneSwitchButton->setText("View Scene On");
     }
 }
+
+void Launcher::drawBackground(QPainter *painter, const QRectF &rect) {
+    Q_UNUSED(rect);
+    painter->drawPixmap(QRectF(0,0,background.width(), background.height()), background, sceneRect());
+}
+
+//getters
+bool Launcher::getSceneSwitch() {
+    return this->sceneSwitch;
+}
+
+
 
 
 

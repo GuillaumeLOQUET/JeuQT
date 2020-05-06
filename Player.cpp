@@ -10,13 +10,13 @@
 
 //Functions
 void Player::changeImage() {
-
+    // get the orientation of the player
     if(this->pressLeft && !this->pressRight){
         orientation = false ;
     }else if(!this->pressLeft && this->pressRight){
         orientation = true ;
     }
-
+    // the bounding rectangle of the player is != if the player is up or down, we need to change the position
     this->setPos(this->pos().x(), this->pos().y() + this->boundingRect().height());
 
     if(!this->orientation){
@@ -26,7 +26,7 @@ void Player::changeImage() {
         }else{
             this->setPixmap(QPixmap("player/playerUpL.png"));
             this->setPos(this->pos().x(), this->pos().y() - this->boundingRect().height());
-            if(this->collidingItems().size() != 0){
+            if(this->collidingItems().size() != 0){ //If a module is above the player
                 this->setPos(this->pos().x(), this->pos().y() + this->boundingRect().height());
                 this->setPixmap(QPixmap("player/playerDownL.png"));
                 this->setPos(this->pos().x(), this->pos().y() - this->boundingRect().height());
@@ -42,7 +42,7 @@ void Player::changeImage() {
         }else{
             this->setPixmap(QPixmap("player/playerUpR.png"));
             this->setPos(this->pos().x(), this->pos().y() - this->boundingRect().height());
-            if(this->collidingItems().size() != 0){
+            if(this->collidingItems().size() != 0){ //If a module is above the player
                 this->setPos(this->pos().x(), this->pos().y() + this->boundingRect().height());
                 this->setPixmap(QPixmap("player/playerDownR.png"));
                 this->setPos(this->pos().x(), this->pos().y() - this->boundingRect().height());

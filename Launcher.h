@@ -18,30 +18,36 @@ class Launcher  : public QGraphicsScene {
 Q_OBJECT
 
 private :
-    QPixmap background;
+    QPixmap background; // Background of the menu
+    // Graphics widgets link to a widget
     QGraphicsProxyWidget* start ;
     QGraphicsProxyWidget* exit ;
     QGraphicsProxyWidget* sceneswtch ;
     QGraphicsProxyWidget* restart ;
     QGraphicsProxyWidget* back ;
     QGraphicsProxyWidget* result ;
+    // Menu's widgets
     QPushButton* exitButton ;
     QPushButton* startButton;
     QPushButton* sceneSwitchButton;
     QPushButton* restartButton;
     QPushButton* backButton;
     QLabel* resultLabel ;
-    bool sceneSwitch = false ;
+
+    bool sceneSwitch = false ;// true -> show the all scene
 
 public:
+    //Constructor
     Launcher();
+    //Getters
     QPushButton* getExit(){return exitButton;}
     QPushButton* getStartButton(){return startButton;}
     QPushButton* getRestartButton(){return restartButton;}
+    //functions
     void drawBackground(QPainter* painter, const QRectF& rect);
     bool getSceneSwitch();
 
-
+//Slots
 public slots:
     void changeSceneSwitch();
     void ScoreView();

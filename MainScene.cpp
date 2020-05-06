@@ -157,7 +157,7 @@ void MainScene::update() {
 
     int timeJump = this->player->getTimeJump()->elapsed() / 10 ; // Get the time since the jump (or falling)
 
-    this->getPlayer()->setPos(pos.x() , this->getPlayer()->getPosBase().y() + 0.3 * timeJump * timeJump - this->getPlayer()->getMoveY() * timeJump);//Move the player in the Y axis
+    this->getPlayer()->setPos(pos.x() , this->getPlayer()->getPosBase().y() + 0.3 * timeJump * timeJump - this->getPlayer()->getMoveY() * timeJump);//Move the player in the Y axis(Newton's 2nd law)
 
     if(touchModule()){ // If because of the move he touches a module the player comeback at the last position
         this->getPlayer()->setPosBase(pos);
