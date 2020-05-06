@@ -22,6 +22,15 @@ Launcher::Launcher() {
     resultLabel->setAlignment(Qt::AlignCenter);
     result = addWidget(resultLabel);
 
+    tutorialLabel = new QLabel();
+    tutorialLabel->setStyleSheet("background-image:url(menu/backgroundResult.png);"
+                               "background-color: transparent;");
+    tutorialLabel->setFont(QFontDatabase().font("Jeuqt","regular",40));
+    tutorialLabel->setGeometry(150 ,50  ,700,300);
+    tutorialLabel->setAlignment(Qt::AlignCenter);
+    tutorialLabel->setText("Key\nJump : Z or up arrow\nGo left : Q or left arrow\nGo Right : D or right arrow\nCrouch : S or down arrow");
+    tutorialL = addWidget(tutorialLabel);
+
     startButton = new QPushButton("Start");
     startButton->setFont(QFontDatabase().font("Jeuqt","regular",70));
     startButton->setStyleSheet("background-image:url(menu/buttonStart.png);"
@@ -60,6 +69,14 @@ Launcher::Launcher() {
     backButton->setGeometry(500 ,400  ,400,100);
     back = addWidget(backButton);
 
+    tutorialButton = new QPushButton("Tutorial");
+    tutorialButton->setFont(QFontDatabase().font("Jeuqt","regular",70));
+    tutorialButton->setStyleSheet("background-image:url(menu/buttonStart.png);"
+                              "background-color: transparent;");
+
+    tutorialButton->setGeometry(100 ,450  ,400,100);
+    tutorialB = addWidget(tutorialButton);
+
 
 
 }
@@ -74,22 +91,28 @@ void Launcher::menuView() {
     exitButton->setVisible(true);
     sceneSwitchButton->setVisible(true);
     backButton->setVisible(false);
+    tutorialButton->setVisible(true);
     restartButton->setVisible(false);
     resultLabel->setVisible(false);
+    tutorialLabel->setVisible(false);
 
     connect(this->sceneSwitchButton, SIGNAL(clicked()),this,SLOT(changeSceneSwitch()));
+    connect(this->tutorialButton, SIGNAL(clicked()),this,SLOT(tutorialView()));
 }
 
 void Launcher::endGameView(int score) {
     // View at the end of the run
     disconnect(this->sceneSwitchButton, SIGNAL(clicked()),this,SLOT(changeSceneSwitch()));
+    disconnect(this->tutorialButton, SIGNAL(clicked()),this,SLOT(tutorialView()));
 
     startButton->setVisible(false);
     exitButton->setVisible(false);
     sceneSwitchButton->setVisible(false);
+    tutorialButton->setVisible(false);
     backButton->setVisible(true);
     restartButton->setVisible(true);
     resultLabel->setVisible(true);
+    tutorialLabel->setVisible(false);
 
     // Get the last score
     std::ifstream tmp("score.txt");
@@ -148,6 +171,22 @@ void Launcher::drawBackground(QPainter *painter, const QRectF &rect) {
 //getters
 bool Launcher::getSceneSwitch() {
     return this->sceneSwitch;
+}
+
+void Launcher::tutorialView() {
+    disconnect(this->sceneSwitchButton, SIGNAL(clicked()),this,SLOT(changeSceneSwitch()));
+    disconnect(this->tutorialButton, SIGNAL(clicked()),this,SLOT(tutorialView()));
+
+    startButton->setVisible(false);
+    exitButton->setVisible(false);
+    sceneSwitchButton->setVisible(false);
+    tutorialButton->setVisible(false);
+    backButton->setVisible(true);
+    restartButton->setVisible(false);
+    resultLabel->setVisible(false);
+    tutorialLabel->setVisible(true);
+
+    connect(this->backButton, SIGNAL(clicked()),this,SLOT(menuView()));
 }
 
 

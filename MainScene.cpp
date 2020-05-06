@@ -232,38 +232,38 @@ void MainScene::end() {
 
 //functions redefined
 void MainScene::keyPressEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_Z) {
+    if (event->key() == Qt::Key_Z || event->key() == Qt::Key_Up) {
         this->getPlayer()->setPressUp(true);
 
     }
-    if (event->key() == Qt::Key_S){
+    if (event->key() == Qt::Key_S || event->key() == Qt::Key_Down){
         this->getPlayer()->setPressDown(true);
 
     }
-    if (event->key() == Qt::Key_Q){
+    if (event->key() == Qt::Key_Q || event->key() == Qt::Key_Left){
         this->getPlayer()->setPressLeft(true);
 
     }
-    if(event->key() == Qt::Key_D){
+    if(event->key() == Qt::Key_D || event->key() == Qt::Key_Right){
         this->getPlayer()->setPressRight(true);
 
     }
 
 }
 void MainScene::keyReleaseEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_Z) {
+    if (event->key() == Qt::Key_Z || event->key() == Qt::Key_Up) {
         this->getPlayer()->setPressUp(false);
 
     }
-    if (event->key() == Qt::Key_S){
+    if (event->key() == Qt::Key_S || event->key() == Qt::Key_Down){
         this->getPlayer()->setPressDown(false);
 
     }
-    if (event->key() == Qt::Key_Q){
+    if (event->key() == Qt::Key_Q || event->key() == Qt::Key_Left){
         this->getPlayer()->setPressLeft(false);
 
     }
-    if(event->key() == Qt::Key_D){
+    if(event->key() == Qt::Key_D || event->key() == Qt::Key_Right){
         this->getPlayer()->setPressRight(false);
 
     }

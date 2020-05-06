@@ -7,15 +7,18 @@
 #include <iostream>
 #include <QThread>
 #include "MainWindow.h"
-
+// Construction main window
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent)
 {
+    //Load the font
     QFontDatabase test = QFontDatabase();
-    test.addApplicationFont("Jeuqt-Regular.ttf"); //Load the font
+    test.addApplicationFont("Jeuqt-Regular.ttf");
+    // Instantiate scenes
     this->menuScene = new Launcher();
     this->mainScene = new MainScene();
 
+    // load the main menu view
     buildMenuView();
 
 
@@ -25,28 +28,30 @@ void MainWindow::buildGame() {
     disconnect(this->menuScene->getStartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
     disconnect(this->menuScene->getRestartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
     disconnect(this->menuScene->getExit(),SIGNAL(clicked()),qApp,SLOT(quit()));
-
+    // Set the view of the game
     this->playerView = new QGraphicsView();
     this->playerView->setScene(mainScene);
     playerView->scale(0.4, 0.4);
 
 
-    if(this->menuScene->getSceneSwitch()){
+    if(this->menuScene->getSceneSwitch()){// If true, set a new view with the all scene
         this->mainView = new QGraphicsView();
         this->mainView->setScene(mainScene);
         mainView->scale(0.1, 0.1);
         mainView->show();
     }
 
-
+    //
     this->setCentralWidget(playerView);
     this->setWindowTitle("Game");
-    this->mainScene->launchGame();
+    this->mainScene->launchGame();// call the launcher of the run
+
     connect(this->mainScene->getExit(),SIGNAL(clicked()),this,SLOT(buildEndGameView()));
 
 }
 
 void MainWindow::buildMenu() {
+    // build the menu view
     if(menuScene->getSceneSwitch()){
         mainView->close();
         delete mainView ;
@@ -61,21 +66,26 @@ void MainWindow::buildMenu() {
 }
 
 void MainWindow::buildEndGameView() {
+    // Load at the end of the run
     disconnect(this->mainScene->getExit(),SIGNAL(clicked()),this,SLOT(buildEndGameView()));
+
     buildMenu();
     this->menuScene->endGameView(this->mainScene->getScore());
-    connect(this->menuScene->getStartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
+
     connect(this->menuScene->getRestartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
+    connect(this->menuScene->getStartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
     connect(this->menuScene->getExit(),SIGNAL(clicked()),qApp,SLOT(quit()));
 
 }
 
 void MainWindow::buildMenuView() {
-    disconnect(this->mainScene->getExit(),SIGNAL(clicked()),this,SLOT(buildEndGameView()));
+    // load the main menu view
+    disconnect(this->menuScene->getRestartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
+
     buildMenu();
     this->menuScene->menuView();
+
     connect(this->menuScene->getStartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
-    connect(this->menuScene->getRestartButton(),SIGNAL(clicked()),this,SLOT(buildGame()));
     connect(this->menuScene->getExit(),SIGNAL(clicked()),qApp,SLOT(quit()));
 }
 

@@ -26,13 +26,17 @@ private :
     QGraphicsProxyWidget* restart ;
     QGraphicsProxyWidget* back ;
     QGraphicsProxyWidget* result ;
+    QGraphicsProxyWidget* tutorialL ;
+    QGraphicsProxyWidget* tutorialB ;
     // Menu's widgets
     QPushButton* exitButton ;
     QPushButton* startButton;
     QPushButton* sceneSwitchButton;
     QPushButton* restartButton;
     QPushButton* backButton;
+    QPushButton* tutorialButton;
     QLabel* resultLabel ;
+    QLabel* tutorialLabel ;
 
     bool sceneSwitch = false ;// true -> show the all scene
 
@@ -53,6 +57,7 @@ public slots:
     void ScoreView();
     void endGameView(int score);
     void menuView();
+    void tutorialView();
 
 };
 
